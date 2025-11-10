@@ -51,16 +51,20 @@ Since all features are categorical, the data required extensive encoding and sta
 X = df.drop(columns=['class'])
 y = df['class']
 ```
+
 # Encode target variable
+```python
 from sklearn.preprocessing import LabelEncoder
 label_enc = LabelEncoder()
 y_encoded = label_enc.fit_transform(y)
-
+```
 # Define columns for different encoding types
+```python
 OneHot = ['cap-surface','bruises','gill-attachment','gill-spacing','gill-size','stalk-shape','veil-type','ring-number']
 ordinal = ['cap-shape','cap-color','odor','gill-color','stalk-root','stalk-surface-above-ring','stalk-surface-below-ring','stalk-color-above-ring','stalk-color-below-ring','veil-color','ring-type','spore-print-color','population','habitat']
-
+```
 # Create ColumnTransformer for preprocessing
+```python
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer 
 from sklearn.pipeline import Pipeline 
@@ -72,11 +76,13 @@ preprocessor = ColumnTransformer(
     ],
     remainder='drop'
 )
-
+```
 # Apply preprocessing and scaling via a Pipeline
+```python
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('scaler', StandardScaler(with_mean=False))
 ])
 
 X_processed = pipeline.fit_transform(X)
+```
